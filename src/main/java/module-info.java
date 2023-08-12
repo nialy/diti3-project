@@ -2,6 +2,7 @@ module sn.diti3.diti3project {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires TrayNotification;
 
 
     opens sn.diti3.diti3project.DB to javafx.fxml;

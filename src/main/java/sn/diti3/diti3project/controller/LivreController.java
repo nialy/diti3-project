@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import sn.diti3.diti3project.DB.DBConnexion;
 import sn.diti3.diti3project.entity.Livre;
+import sn.diti3.diti3project.tools.Notification;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -24,6 +25,12 @@ public class LivreController implements Initializable {
 
     @FXML
     private TableColumn<Livre, String> auteurCol;
+
+    @FXML
+    private Button emprunterBtn;
+
+    @FXML
+    private Button rendreBtn;
 
     @FXML
     private TextField auteurTfd;
@@ -69,7 +76,7 @@ public class LivreController implements Initializable {
 
     public ObservableList<Livre> getLivres(){
         ObservableList<Livre> livres = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM livre WHERE etat_emprunt = 0 ORDER BY auteur";
+        String sql = "SELECT * FROM livre ORDER BY auteur";
         try {
             db.initPrepar(sql);
             ResultSet rs = db.executeSelect();
@@ -111,6 +118,7 @@ public class LivreController implements Initializable {
             db.closeConnection();
             loadTable();
             clearFields();
+            Notification.NotifSuccess("Succés !", "Le livre a été bien supprimé");
         }catch (SQLException e){
             throw new RuntimeException();
         }
@@ -130,6 +138,7 @@ public class LivreController implements Initializable {
             db.closeConnection();
             loadTable();
             clearFields();
+            Notification.NotifSuccess("Succés !", "Le livre a été bien enregistré");
         }catch (SQLException e){
             throw new RuntimeException();
         }
@@ -156,6 +165,13 @@ public class LivreController implements Initializable {
         isbnTfd.setText(livre.getIsbn());
         nbPagesTfd.setText(String.valueOf(livre.getNbPages()));
         enregistrerBtn.setDisable(true);
+        if (getLivre(id).getEtatEmprunt() == 0){
+            rendreBtn.setDisable(true);
+            emprunterBtn.setDisable(false);
+        } else{
+            rendreBtn.setDisable(false);
+            emprunterBtn.setDisable(true);
+       }
     }
 
     @FXML
@@ -173,9 +189,73 @@ public class LivreController implements Initializable {
             db.closeConnection();
             loadTable();
             clearFields();
+            Notification.NotifSuccess("Succés !", "Le livre a été bien modifié");
         }catch (SQLException e){
             throw new RuntimeException();
         }
+    }
+
+    public Livre getLivre(int id){
+        Livre livre = null;
+        String sql = "SELECT * FROM livre WHERE id = ?";
+        try {
+            db.initPrepar(sql);
+            db.getPstm().setInt(1, id);
+            ResultSet rs = db.executeSelect();
+            if(rs.next()){
+                livre = new Livre();
+                livre.setId(rs.getInt("id"));
+                livre.setTitre(rs.getString("titre"));
+                livre.setAuteur(rs.getString("auteur"));
+                livre.setIsbn(rs.getString("isbn"));
+                livre.setEtatEmprunt(rs.getInt("etat_emprunt"));
+                livre.setNbPages(rs.getInt("nb_pages"));
+            }
+            db.closeConnection();
+        }catch (SQLException e){
+            throw new RuntimeException();
+        }
+        return livre;
+    }
+
+    @FXML
+    void emprunt(ActionEvent event) {
+            String sql = "UPDATE livre SET etat_emprunt = 1 WHERE id = ?";
+            try {
+                db.initPrepar(sql);
+                //Passage de valeurs
+                db.getPstm().setInt(1, id);
+                int ok = db.executeMaj();
+                db.closeConnection();
+                loadTable();
+                clearFields();
+                enregistrerBtn.setDisable(false);
+                rendreBtn.setDisable(false);
+                Notification.NotifSuccess("Succés !", "Le livre a été emprunté");
+            }catch (SQLException e){
+                throw new RuntimeException();
+            }
+
+    }
+
+
+    @FXML
+    void rendre(ActionEvent event) {
+        String sql = "UPDATE livre SET etat_emprunt = 0 WHERE id = ?";
+            try {
+                db.initPrepar(sql);
+                //Passage de valeurs
+                db.getPstm().setInt(1, id);
+                int ok = db.executeMaj();
+                db.closeConnection();
+                loadTable();
+                clearFields();
+                enregistrerBtn.setDisable(false);
+                emprunterBtn.setDisable(false);
+                Notification.NotifSuccess("Succés !", "Le livre a été rendu");
+            }catch (SQLException e){
+                throw new RuntimeException();
+            }
     }
 
     @Override

@@ -82,6 +82,8 @@
             <Button fx:id="modifierBtn" layoutX="140.0" layoutY="17.0" mnemonicParsing="false" onAction="#update" text="Modifier" />
             <Button fx:id="supprimerBtn" layoutX="190.0" layoutY="17.0" mnemonicParsing="false" onAction="#delete" text="Supprimer" />
           <Button fx:id="effacerBtn" mnemonicParsing="false" onAction="#clear" prefHeight="26.0" prefWidth="83.0" text="Effacer" />
+            <Button fx:id="emprunterBtn" layoutX="360.0" layoutY="17.0" mnemonicParsing="false" onAction="#emprunt" prefHeight="26.0" prefWidth="83.0" text="Emprunter" />
+            <Button fx:id="rendreBtn" layoutX="369.0" layoutY="17.0" mnemonicParsing="false" onAction="#rendre" prefHeight="26.0" prefWidth="83.0" text="Rendre" />
         </buttons>
       </ButtonBar>
    </children>
