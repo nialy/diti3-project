@@ -118,6 +118,7 @@ public class LivreController implements Initializable {
             db.closeConnection();
             loadTable();
             clearFields();
+            enregistrerBtn.setDisable(false);
             Notification.NotifSuccess("Succés !", "Le livre a été bien supprimé");
         }catch (SQLException e){
             throw new RuntimeException();
@@ -189,6 +190,7 @@ public class LivreController implements Initializable {
             db.closeConnection();
             loadTable();
             clearFields();
+            enregistrerBtn.setDisable(false);
             Notification.NotifSuccess("Succés !", "Le livre a été bien modifié");
         }catch (SQLException e){
             throw new RuntimeException();
@@ -261,5 +263,10 @@ public class LivreController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadTable();
+        enregistrerBtn.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+        modifierBtn.setStyle("-fx-background-color: orange; -fx-text-fill: white;");
+        supprimerBtn.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        emprunterBtn.setStyle("-fx-background-color: yellow; -fx-text-fill: white;");
+        rendreBtn.setStyle("-fx-background-color: green; -fx-text-fill: white;");
     }
 }

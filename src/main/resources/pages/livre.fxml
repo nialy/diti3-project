@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1008.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sn.diti3.diti3project.controller.LivreController">
    <children>
-      <Text layoutX="198.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GESTION DES LIVRES ET DES EMPRUNTS" textAlignment="CENTER" underline="true" wrappingWidth="625.94873046875">
+      <Text layoutX="198.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LIBRARY MANEGEMENT" textAlignment="CENTER" underline="true" wrappingWidth="625.94873046875">
          <font>
             <Font size="32.0" />
          </font>
@@ -45,7 +45,7 @@
                   <Insets right="10.0" top="20.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="isbnTfd" promptText="L'ISBN du livre ici ...">
+            <TextField fx:id="isbnTfd" promptText="Numero du livre ...">
                <VBox.margin>
                   <Insets right="10.0" top="20.0" />
                </VBox.margin>
@@ -62,7 +62,7 @@
             </TextField>
          </children>
       </VBox>
-      <Text layoutX="601.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des livres" textAlignment="CENTER" underline="true">
+      <Text layoutX="601.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BOOKS" textAlignment="CENTER" underline="true">
          <font>
             <Font size="29.0" />
          </font>
